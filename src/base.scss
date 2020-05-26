@@ -1,6 +1,23 @@
+:root {
+  --color-extra-dark: #121212;
+  --color-dark: #4f3b78;
+  --color-light: #927fbf;
+  --color-extra-light: #c4bbf0;
+  --color-ultra-light: #e4e1f2;
+
+  --high-emphasis-opacity: 0.87;
+  --medium-emphasis-opacity: 0.60;
+  --low-emphasis-opacity: 0.38;
+
+  --color-high-emphasis: rgba(255, 255, 255, var(--high-emphasis-opacity));
+  --color-medium-emphasis: rgba(255, 255, 255, var(--medium-emphasis-opacity));
+  --color-low-emphasis: rgba(255, 255, 255, var(--low-emphasis-opacity));
+}
+
 html, body {
   margin: 0;
   width: 100%;
   height: 100%;
-  background: #0e1024;
+  background: var(--color-extra-dark);
+  color: var(--color-ultra-light);
 }
