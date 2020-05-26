@@ -23,15 +23,15 @@ export default function CharacterThumbnail ({ paths, active, onClick }) {
           margin: 4px;
           border-radius: 4px;
           transition: background 0.1s ease-in-out;
-        }
 
-        .character-thumbnail:hover {
-          background: var(--color-high-emphasis);
-        }
+          &:hover {
+            background: var(--color-high-emphasis);
+          }
 
-        .character-thumbnail.active {
-          background: #fff;
-          box-shadow: 0 0 5px #fff;
+          &.active {
+            background: #fff;
+            box-shadow: 0 0 5px #fff;
+          }
         }
       `}</style>
     </>
