@@ -4,7 +4,8 @@ export default function Row ({
   children,
   justifyContent = 'center',
   alignItems = 'center',
-  flexWrap = 'wrap'
+  flexWrap = 'wrap',
+  marginBottom = 0
 }) {
   return (
     <div className="rsc-row">
@@ -18,6 +19,7 @@ export default function Row ({
           align-items: ${alignItems};
           flex-wrap: ${flexWrap};
           padding: 8px;
+          margin-bottom: ${marginBottom}px;
         }
 
         .rsc-row > * {

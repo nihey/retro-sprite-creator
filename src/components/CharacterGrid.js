@@ -21,29 +21,31 @@ export default function CharacterGrid ({ onChange }) {
 
   return (
     <div className="character-grid">
-      {baseGenders.map(([gender, options]) => {
-        return (
-          <Row key={gender}>
-            {options.map((option, i) => {
-              const path = `base/${gender}/${option.front}`
-              return (
-                <CharacterThumbnail
-                  key={i}
-                  paths={[path]}
-                  active={path === selectedBase}
-                  onClick={() => {
-                    const newGender = path.split('/')[1]
-                    if (selectedGender !== newGender) {
-                      setSelectedAccessories({})
-                    }
-                    setSelectedBase(path)
-                  }}
-                />
-              )
-            })}
-          </Row>
-        )
-      })}
+      <div className="base">
+        {baseGenders.map(([gender, options]) => {
+          return (
+            <Row key={gender}>
+              {options.map((option, i) => {
+                const path = `base/${gender}/${option.front}`
+                return (
+                  <CharacterThumbnail
+                    key={i}
+                    paths={[path]}
+                    active={path === selectedBase}
+                    onClick={() => {
+                      const newGender = path.split('/')[1]
+                      if (selectedGender !== newGender) {
+                        setSelectedAccessories({})
+                      }
+                      setSelectedBase(path)
+                    }}
+                  />
+                )
+              })}
+            </Row>
+          )
+        })}
+      </div>
       {sections.map(([section, GenderMap]) => {
         const genders = Object.entries(GenderMap).filter(([gender]) => (
           gender === selectedGender || gender === 'unissex'
@@ -52,7 +54,7 @@ export default function CharacterGrid ({ onChange }) {
         const gendersWithBlank = blankOption.concat(genders)
 
         return (
-          <Row key={section}>{
+          <Row key={section} marginBottom={16}>{
             gendersWithBlank.map(([gender, options]) => {
               return options.map((option, i) => {
                 const getOptionPath = (optionSide) => {
@@ -94,6 +96,10 @@ export default function CharacterGrid ({ onChange }) {
           display: flex;
           flex-direction: column;
           padding: 0 160px;
+
+          .base {
+            margin-bottom: 32px;
+          }
 
           @media (max-width: 600px) {
             padding: 0px;

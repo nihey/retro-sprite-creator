@@ -1,21 +1,19 @@
 import React from 'react'
 
+import getImage from '../util/getImage'
+import SpriteSheetPreview from './SpriteSheetPreview'
+
 const getImageURL = (path) => {
   return `/images/creator/${path}.png`
 }
 
-const getImage = async (path) => {
+const getImageFromPath = async (path) => {
   const imageURL = getImageURL(path)
-  const image = new Image()
-  return new Promise((resolve, reject) => {
-    image.onload = () => resolve(image)
-    image.onerror = reject
-    image.src = imageURL
-  })
+  return getImage(imageURL)
 }
 
 const getImageListFromPath = async (pathList) => {
-  const imageListPromise = pathList.map(path => getImage(path))
+  const imageListPromise = pathList.map(path => getImageFromPath(path))
   return Promise.all(imageListPromise)
 }
 
@@ -44,7 +42,7 @@ const createPreview = async (canvas, base, settings) => {
 
   const backImages = await backImagesPromise
   const frontImages = await frontImagesPromise
-  const baseImage = await getImage(base)
+  const baseImage = await getImageFromPath(base)
 
   context.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -79,14 +77,21 @@ export default function CharacterPreview ({ characterSettings }) {
 
   return (
     <div className="character-preview">
+      <SpriteSheetPreview spriteSheet={spriteSheet}/>
       <canvas ref={canvas} className="canvas" width={32 * 3} height={32 * 4}/>
+      <div className="actions">
+        <a className="button" href={spriteSheet} download="RetroSprite.png">
+          Download
+        </a>
+      </div>
       <style jsx>{`
         .character-preview {
           position: fixed;
           top: 0;
           left: 0;
           display: ${isHidden ? 'none' : 'flex'};
-          justify-content: center;
+          flex-direction: column;
+          align-items: center;
           width: 160px;
           padding: 32px 0;
 
@@ -94,6 +99,10 @@ export default function CharacterPreview ({ characterSettings }) {
             background: #fff;
             border-radius: 4px;
             padding: 4px;
+          }
+
+          .actions {
+            margin-top: 24px;
           }
         }
       `}</style>
