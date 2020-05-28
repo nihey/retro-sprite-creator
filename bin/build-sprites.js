@@ -125,7 +125,7 @@ Object.keys(spriteMap.base).forEach(function (baseGender) {
               e.back ? group + '/' + groupGender + '/' + e.back : 'blank',
               'base/' + baseGender + '/' + base,
               group + '/' + groupGender + '/' + e.front
-            ], group === 'hair-back' ? 96 : 0)
+            ], group === 'hair-back' || group === 'wing' ? 96 : 0)
           })
         }
       })
