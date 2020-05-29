@@ -5,19 +5,15 @@ import Row from './Row'
 import CharacterThumbnail from './CharacterThumbnail'
 const { base: BaseSpriteMap, ...SpriteMap } = RawSpriteMap
 
-export default function CharacterGrid ({ onChange }) {
-  const [selectedBase, setSelectedBase] = React.useState('base/male/color-0')
-  const [selectedAccessories, setSelectedAccessories] = React.useState({})
+export default function CharacterGrid ({ characterSettings, onChange }) {
+  const {
+    base: selectedBase,
+    ...selectedAccessories
+  } = characterSettings
+
   const selectedGender = React.useMemo(() => selectedBase.split('/')[1], [selectedBase])
   const baseGenders = React.useMemo(() => Object.entries(BaseSpriteMap), [])
   const sections = React.useMemo(() => Object.entries(SpriteMap), [])
-
-  React.useEffect(() => {
-    onChange({
-      ...selectedAccessories,
-      base: selectedBase
-    })
-  }, [selectedBase, selectedAccessories])
 
   return (
     <div className="character-grid">
@@ -35,9 +31,13 @@ export default function CharacterGrid ({ onChange }) {
                     onClick={() => {
                       const newGender = path.split('/')[1]
                       if (selectedGender !== newGender) {
-                        setSelectedAccessories({})
+                        onChange({ base: path })
+                        return
                       }
-                      setSelectedBase(path)
+                      onChange({
+                        ...characterSettings,
+                        base: path
+                      })
                     }}
                   />
                 )
@@ -81,9 +81,9 @@ export default function CharacterGrid ({ onChange }) {
                     key={i}
                     paths={paths}
                     active={isActive}
-                    onClick={() => setSelectedAccessories({
-                      ...selectedAccessories,
-                      [section]: isBlank ? null : paths
+                    onClick={() => onChange({
+                      ...characterSettings,
+                      [section]: isBlank ? undefined : paths
                     })}
                   />)
               })
