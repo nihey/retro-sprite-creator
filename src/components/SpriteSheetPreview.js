@@ -27,11 +27,11 @@ function useInterval (callback, delay) {
 
 function Sprite ({ spriteSheet, cropPoints }) {
   const canvas = React.useRef(null)
-  const [cropIndex, setCropIndex] = React.useState(0)
+  const cropIndexRef = React.useRef(0)
 
   useInterval(async () => {
     const canvasElement = canvas.current
-    const cropPoint = cropPoints[cropIndex]
+    const cropPoint = cropPoints[cropIndexRef.current]
     if (!cropPoint || !canvasElement || !spriteSheet) {
       return
     }
@@ -43,8 +43,7 @@ function Sprite ({ spriteSheet, cropPoints }) {
     context.clearRect(0, 0, canvasElement.width, canvasElement.height)
     context.drawImage(spriteSheetImage, sx, sy, sWidth, sHeight, 0, 0, sWidth, sHeight)
 
-    const nextCropIndex = (cropIndex + 1) % cropPoints.length
-    setCropIndex(nextCropIndex)
+    cropIndexRef.current = (cropIndexRef.current + 1) % cropPoints.length
   }, 200)
 
   return (

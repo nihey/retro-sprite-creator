@@ -2,6 +2,7 @@ import React from 'react'
 
 import getImage from '../util/getImage'
 import SpriteSheetPreview from './SpriteSheetPreview'
+import currentTabToBeFocused from '../util/currentTabToBeFocused'
 
 const getImageURL = (path) => {
   return `/images/creator/${path}.png`
@@ -44,6 +45,10 @@ const createPreview = async (canvas, base, settings) => {
   const frontImages = await frontImagesPromise
   const baseImage = await getImageFromPath(base)
 
+  // Canvas commands will only be flushed to canvas element when the user is
+  // focusing the current tab
+  await currentTabToBeFocused()
+
   context.clearRect(0, 0, canvas.width, canvas.height)
 
   backImages.forEach((image) => {
@@ -55,6 +60,8 @@ const createPreview = async (canvas, base, settings) => {
   frontImages.forEach((image) => {
     context.drawImage(image, 0, 0)
   })
+
+  return canvas.toDataURL('image/png')
 }
 
 export default function CharacterPreview ({ characterSettings }) {
@@ -69,8 +76,7 @@ export default function CharacterPreview ({ characterSettings }) {
     }
 
     const { base, ...settings } = characterSettings
-    createPreview(canvasElement, base, settings).then(() => {
-      const newSpriteSheet = canvasElement.toDataURL('image/png')
+    createPreview(canvasElement, base, settings).then((newSpriteSheet) => {
       setSpriteSheet(newSpriteSheet)
     })
   }, [characterSettings])
