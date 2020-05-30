@@ -11,8 +11,8 @@
   --color-ultra-light: #e4e1f2;
 
   --high-emphasis-opacity: 0.87;
-  --medium-emphasis-opacity: 0.60;
-  --low-emphasis-opacity: 0.38;
+  --medium-emphasis-opacity: 0.52;
+  --low-emphasis-opacity: 0.22;
 
   --color-high-emphasis: rgba(255, 255, 255, var(--high-emphasis-opacity));
   --color-medium-emphasis: rgba(255, 255, 255, var(--medium-emphasis-opacity));
@@ -46,7 +46,12 @@ html, body {
   $transition-curve: ease-in-out;
   transition: background $transition-duration $transition-curve, box-shadow $transition-duration $transition-curve;
 
-  &:hover {
+  &.loading {
+    cursor: progress;
+    background: var(--color-low-emphasis);
+  }
+
+  &:not(.loading):hover {
     background: var(--color-ultra-light);
     box-shadow: 0 0 8px var(--color-ultra-light);
   }

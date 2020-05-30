@@ -18,7 +18,7 @@ export default function CharacterThumbnail ({ paths, active, onClick }) {
           cursor: pointer;
           width: 32px;
           height: 32px;
-          background: var(--color-low-emphasis);
+          background: var(--color-medium-emphasis);
           padding: 4px;
           margin: 4px;
           border-radius: 4px;

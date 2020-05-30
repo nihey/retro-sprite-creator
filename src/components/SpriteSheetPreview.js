@@ -1,6 +1,8 @@
 import React from 'react'
 
 import getImage from '../util/getImage'
+import Dimmer from './Dimmer'
+import TetrominoLoader from './TetrominoLoader'
 
 function useInterval (callback, delay) {
   const savedCallback = React.useRef()
@@ -25,7 +27,7 @@ function useInterval (callback, delay) {
   }, [delay])
 }
 
-function Sprite ({ spriteSheet, cropPoints }) {
+function Sprite ({ spriteSheet, cropPoints, loading }) {
   const canvas = React.useRef(null)
   const cropIndexRef = React.useRef(0)
 
@@ -47,61 +49,74 @@ function Sprite ({ spriteSheet, cropPoints }) {
   }, 200)
 
   return (
-    <>
+    <div className="animated-sprite">
       <canvas ref={canvas} width={32} height={32}/>
+      {loading && <Dimmer><TetrominoLoader size="xs"/></Dimmer>}
       <style jsx>{`
-        canvas {
-          padding: 4px;
-          border-radius: 4px;
-          background: #fff;
-          margin: 4px;
+        .animated-sprite {
+          position: relative;
+
+          canvas {
+            padding: 4px;
+            border-radius: 4px;
+            background: #fff;
+            margin: 4px;
+          }
         }
       `}</style>
-    </>
+    </div>
   )
 }
 
-export default function SpriteSheetPreview ({ spriteSheet }) {
+const cropPointsList = [
+  [
+    [0, 0, 32, 32],
+    [32, 0, 32, 32],
+    [64, 0, 32, 32],
+    [32, 0, 32, 32]
+  ], [
+    [0, 32, 32, 32],
+    [32, 32, 32, 32],
+    [64, 32, 32, 32],
+    [32, 32, 32, 32]
+  ], [
+    [0, 64, 32, 32],
+    [32, 64, 32, 32],
+    [64, 64, 32, 32],
+    [32, 64, 32, 32]
+  ], [
+    [0, 96, 32, 32],
+    [32, 96, 32, 32],
+    [64, 96, 32, 32],
+    [32, 96, 32, 32]
+  ]
+]
+
+export default function SpriteSheetPreview ({ spriteSheet, loading }) {
   return (
     <div className="spritesheet-preview">
       <div className="row">
         <Sprite
           spriteSheet={spriteSheet}
-          cropPoints={[
-            [0, 0, 32, 32],
-            [32, 0, 32, 32],
-            [64, 0, 32, 32],
-            [32, 0, 32, 32]
-          ]}
+          loading={loading}
+          cropPoints={cropPointsList[0]}
         />
         <Sprite
           spriteSheet={spriteSheet}
-          cropPoints={[
-            [0, 32, 32, 32],
-            [32, 32, 32, 32],
-            [64, 32, 32, 32],
-            [32, 32, 32, 32]
-          ]}
+          loading={loading}
+          cropPoints={cropPointsList[1]}
         />
       </div>
       <div className="row">
         <Sprite
           spriteSheet={spriteSheet}
-          cropPoints={[
-            [0, 64, 32, 32],
-            [32, 64, 32, 32],
-            [64, 64, 32, 32],
-            [32, 64, 32, 32]
-          ]}
+          loading={loading}
+          cropPoints={cropPointsList[2]}
         />
         <Sprite
           spriteSheet={spriteSheet}
-          cropPoints={[
-            [0, 96, 32, 32],
-            [32, 96, 32, 32],
-            [64, 96, 32, 32],
-            [32, 96, 32, 32]
-          ]}
+          loading={loading}
+          cropPoints={cropPointsList[3]}
         />
       </div>
       <style jsx>{`

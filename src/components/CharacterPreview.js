@@ -1,8 +1,11 @@
 import React from 'react'
+import classNames from 'classnames'
 
 import getImage from '../util/getImage'
 import SpriteSheetPreview from './SpriteSheetPreview'
 import currentTabToBeFocused from '../util/currentTabToBeFocused'
+import Dimmer from './Dimmer'
+import TetrominoLoader from './TetrominoLoader'
 
 const getImageURL = (path) => {
   return `/images/creator/${path}.png`
@@ -67,6 +70,7 @@ const createPreview = async (canvas, base, settings) => {
 export default function CharacterPreview ({ characterSettings }) {
   const canvas = React.useRef(null)
   const [spriteSheet, setSpriteSheet] = React.useState(null)
+  const [loading, setLoading] = React.useState(false)
   const isHidden = React.useMemo(() => !characterSettings, [characterSettings])
 
   React.useEffect(() => {
@@ -75,19 +79,33 @@ export default function CharacterPreview ({ characterSettings }) {
       return
     }
 
+    setLoading(true)
     const { base, ...settings } = characterSettings
     createPreview(canvasElement, base, settings).then((newSpriteSheet) => {
       setSpriteSheet(newSpriteSheet)
+      setLoading(false)
     })
   }, [characterSettings])
 
   return (
     <div className="character-preview">
-      <SpriteSheetPreview spriteSheet={spriteSheet}/>
-      <canvas ref={canvas} className="canvas" width={32 * 3} height={32 * 4}/>
+      <SpriteSheetPreview spriteSheet={spriteSheet} loading={loading}/>
+      <div className="canvascontainer">
+        <canvas
+          ref={canvas}
+          className="canvas"
+          width={32 * 3}
+          height={32 * 4}
+        />
+        {loading && <Dimmer><TetrominoLoader size="sm"/></Dimmer>}
+      </div>
       <div className="actions">
-        <a className="button" href={spriteSheet} download="RetroSprite.png">
-          Download
+        <a
+          href={spriteSheet}
+          className={classNames('button', { loading })}
+          download="RetroSprite.png"
+        >
+          { loading ? <TetrominoLoader size="xs" /> : 'Download'}
         </a>
       </div>
       <style jsx>{`
@@ -101,6 +119,10 @@ export default function CharacterPreview ({ characterSettings }) {
           width: 160px;
           padding: 32px 0;
 
+          .canvascontainer {
+            position: relative;
+          }
+
           .canvas {
             background: #fff;
             border-radius: 4px;
@@ -109,6 +131,14 @@ export default function CharacterPreview ({ characterSettings }) {
 
           .actions {
             margin-top: 24px;
+          }
+
+          a.button {
+            position: relative;
+            display: flex;
+            box-sizing: border-box;
+            min-width: 110.36px;
+            min-height: 32px;
           }
         }
       `}</style>
