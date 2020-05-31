@@ -5,6 +5,7 @@ const path = require('path')
 
 const { createCanvas, Image } = require('canvas')
 const md5 = require('md5')
+const shortHash = require('short-hash')
 const gracefulFs = require('graceful-fs')
 gracefulFs.gracefulify(fs)
 
@@ -82,7 +83,7 @@ function build (paths, sy = 0) {
   // Join all images on the correct order
   paths.forEach(function (filename) {
     const image = new Image()
-    console.log('opening', filename)
+    console.info('opening', filename)
     image.src = fs.readFileSync(path.join(__dirname, '../public/images/creator/', `${filename}.png`))
     context.drawImage(image, 32, sy, 32, 32, 0, 0, 32, 32)
   })
@@ -94,6 +95,7 @@ function build (paths, sy = 0) {
   fs.writeFileSync(thumbnailPath, buffer)
 }
 
+console.info('Writing SpriteMap')
 fs.writeFileSync(
   path.join(__dirname, '../src/constants/SpriteMap.json'),
   JSON.stringify(spriteMap, null, 2)
@@ -103,12 +105,29 @@ fs.writeFileSync(
 build(['blank'])
 
 // Iterate over all bases
+const spriteHashMap = {}
+
+const addToSpriteHashMap = (group, imageArray) => {
+  spriteHashMap[group] = spriteHashMap[group] || {}
+  const spriteHashMapGroup = spriteHashMap[group]
+  const hash = shortHash(imageArray.join('|'))
+
+  if (spriteHashMapGroup[hash]) {
+    throw new Error('Ooops, a duplicate hash has been found, change a file name')
+  }
+
+  spriteHashMapGroup[hash] = imageArray
+}
+
 Object.keys(spriteMap.base).forEach(function (baseGender) {
   spriteMap.base[baseGender].forEach(function (base) {
     base = base.front
 
     // Base thumbnails (displayed at the top of the page)
-    build(['base/' + baseGender + '/' + base]);
+    build(['base/' + baseGender + '/' + base])
+    const baseImageArray = ['base/' + baseGender + '/' + base]
+    build(baseImageArray)
+    addToSpriteHashMap('base', baseImageArray);
 
     // Iterate over all groups
     [
@@ -121,16 +140,25 @@ Object.keys(spriteMap.base).forEach(function (baseGender) {
           // Iterate over all group elements
           spriteMap[group][groupGender].forEach(function (e) {
             console.info('Combining', baseGender, base, group, groupGender, e)
-            build([
-              e.back ? group + '/' + groupGender + '/' + e.back : 'blank',
-              'base/' + baseGender + '/' + base,
-              group + '/' + groupGender + '/' + e.front
-            ], group === 'hair-back' || group === 'wing' ? 96 : 0)
+            const backImage = e.back ? `${group}/${groupGender}/${e.back}` : 'blank'
+            const middleImage = `base/${baseGender}/${base}`
+            const frontImage = `${group}/${groupGender}/${e.front}`
+            const imageArray = [backImage, middleImage, frontImage]
+            const shouldUseBackSide = group === 'hair-back' || group === 'wing'
+
+            addToSpriteHashMap(group, imageArray)
+            build(imageArray, shouldUseBackSide ? 96 : 0)
           })
         }
       })
     })
   })
 })
+
+console.info('Writing SpriteHashMap')
+fs.writeFileSync(
+  path.join(__dirname, '../src/constants/SpriteHashMap.json'),
+  JSON.stringify(spriteHashMap, null, 2)
+)
 
 console.info('Built', count, 'combinations')

@@ -9,6 +9,7 @@ export default function CharacterThumbnail ({ paths, active, onClick }) {
   return (
     <>
       <img
+        key={filepath}
         className={classNames('character-thumbnail', { active })}
         src={filepath}
         onClick={onClick}
