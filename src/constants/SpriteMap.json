@@ -2789,7 +2789,9 @@
       {
         "front": "9_yellow_front"
       }
-    ],
+    ]
+  },
+  "gender-accessory": {
     "male": [
       {
         "back": "1_black_back",
@@ -3080,6 +3082,220 @@
       {
         "back": "6_yellow_back",
         "front": "6_yellow_front"
+      }
+    ]
+  },
+  "head-accessory": {
+    "unissex": [
+      {
+        "back": "1_black_back",
+        "front": "1_black_front"
+      },
+      {
+        "front": "1_black_middle"
+      },
+      {
+        "back": "1_blue_back",
+        "front": "1_blue_front"
+      },
+      {
+        "front": "1_blue_middle"
+      },
+      {
+        "back": "1_green_back",
+        "front": "1_green_front"
+      },
+      {
+        "front": "1_green_middle"
+      },
+      {
+        "back": "1_red_back",
+        "front": "1_red_front"
+      },
+      {
+        "front": "1_red_middle"
+      },
+      {
+        "back": "1_white_back",
+        "front": "1_white_front"
+      },
+      {
+        "front": "1_white_middle"
+      },
+      {
+        "back": "1_yellow_back",
+        "front": "1_yellow_front"
+      },
+      {
+        "front": "1_yellow_middle"
+      },
+      {
+        "back": "2_black_back",
+        "front": "2_black_front"
+      },
+      {
+        "front": "2_black_middle"
+      },
+      {
+        "back": "2_blue_back",
+        "front": "2_blue_front"
+      },
+      {
+        "front": "2_blue_middle"
+      },
+      {
+        "back": "2_green_back",
+        "front": "2_green_front"
+      },
+      {
+        "front": "2_green_middle"
+      },
+      {
+        "back": "2_red_back",
+        "front": "2_red_front"
+      },
+      {
+        "front": "2_red_middle"
+      },
+      {
+        "back": "2_white_back",
+        "front": "2_white_front"
+      },
+      {
+        "front": "2_white_middle"
+      },
+      {
+        "back": "2_yellow_back",
+        "front": "2_yellow_front"
+      },
+      {
+        "front": "2_yellow_middle"
+      },
+      {
+        "back": "3_black_back",
+        "front": "3_black_front"
+      },
+      {
+        "front": "3_black_middle"
+      },
+      {
+        "back": "3_blue_back",
+        "front": "3_blue_front"
+      },
+      {
+        "front": "3_blue_middle"
+      },
+      {
+        "back": "3_green_back",
+        "front": "3_green_front"
+      },
+      {
+        "front": "3_green_middle"
+      },
+      {
+        "back": "3_red_back",
+        "front": "3_red_front"
+      },
+      {
+        "front": "3_red_middle"
+      },
+      {
+        "back": "3_white_back",
+        "front": "3_white_front"
+      },
+      {
+        "front": "3_white_middle"
+      },
+      {
+        "back": "3_yellow_back",
+        "front": "3_yellow_front"
+      },
+      {
+        "front": "3_yellow_middle"
+      },
+      {
+        "back": "4_black_back",
+        "front": "4_black_front"
+      },
+      {
+        "front": "4_black_middle"
+      },
+      {
+        "back": "4_blue_back",
+        "front": "4_blue_front"
+      },
+      {
+        "front": "4_blue_middle"
+      },
+      {
+        "back": "4_green_back",
+        "front": "4_green_front"
+      },
+      {
+        "front": "4_green_middle"
+      },
+      {
+        "back": "4_red_back",
+        "front": "4_red_front"
+      },
+      {
+        "front": "4_red_middle"
+      },
+      {
+        "back": "4_white_back",
+        "front": "4_white_front"
+      },
+      {
+        "front": "4_white_middle"
+      },
+      {
+        "back": "4_yellow_back",
+        "front": "4_yellow_front"
+      },
+      {
+        "front": "4_yellow_middle"
+      },
+      {
+        "back": "5_black_back",
+        "front": "5_black_front"
+      },
+      {
+        "front": "5_black_middle"
+      },
+      {
+        "back": "5_blue_back",
+        "front": "5_blue_front"
+      },
+      {
+        "front": "5_blue_middle"
+      },
+      {
+        "back": "5_green_back",
+        "front": "5_green_front"
+      },
+      {
+        "front": "5_green_middle"
+      },
+      {
+        "back": "5_red_back",
+        "front": "5_red_front"
+      },
+      {
+        "front": "5_red_middle"
+      },
+      {
+        "back": "5_white_back",
+        "front": "5_white_front"
+      },
+      {
+        "front": "5_white_middle"
+      },
+      {
+        "back": "5_yellow_back",
+        "front": "5_yellow_front"
+      },
+      {
+        "front": "5_yellow_middle"
       }
     ]
   },

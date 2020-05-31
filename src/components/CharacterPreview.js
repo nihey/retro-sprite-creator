@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
+import OrderedSections from '../constants/OrderedSections.json'
 import getImage from '../util/getImage'
 import SpriteSheetPreview from './SpriteSheetPreview'
 import currentTabToBeFocused from '../util/currentTabToBeFocused'
@@ -22,11 +23,7 @@ const getImageListFromPath = async (pathList) => {
 }
 
 const getAccessories = (settings) => {
-  const possibleSections = [
-    'hair', 'hair-front', 'hair-back', 'body', 'armor', 'accessory', 'mantle',
-    'wing'
-  ]
-  const accessories = possibleSections.map(section => {
+  const accessories = OrderedSections.map(section => {
     return settings[section]
   }).filter(v => v)
 

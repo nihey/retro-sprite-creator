@@ -1,5 +1,6 @@
 import React from 'react'
 
+import OrderedSections from '../constants/OrderedSections.json'
 import RawSpriteMap from '../constants/SpriteMap.json'
 import Row from './Row'
 import CharacterThumbnail from './CharacterThumbnail'
@@ -13,7 +14,11 @@ export default function CharacterGrid ({ characterSettings, onChange }) {
 
   const selectedGender = React.useMemo(() => selectedBase.split('/')[1], [selectedBase])
   const baseGenders = React.useMemo(() => Object.entries(BaseSpriteMap), [])
-  const sections = React.useMemo(() => Object.entries(SpriteMap), [])
+  const sections = React.useMemo(() => {
+    return OrderedSections.map(section => {
+      return [section, SpriteMap[section]]
+    })
+  }, [])
 
   return (
     <div className="character-grid">

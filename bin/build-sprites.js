@@ -7,6 +7,7 @@ const { createCanvas, Image } = require('canvas')
 const md5 = require('md5')
 const shortHash = require('short-hash')
 const gracefulFs = require('graceful-fs')
+const OrderedSections = require('../src/constants/OrderedSections')
 gracefulFs.gracefulify(fs)
 
 function readDir (dirPath) {
@@ -60,9 +61,14 @@ const spriteMap = {
     unissex: parseDir('armor/unissex')
   },
   accessory: {
-    unissex: parseDir('accessory/unissex'),
-    male: parseDir('accessory/male'),
-    female: parseDir('accessory/female')
+    unissex: parseDir('accessory/unissex')
+  },
+  'gender-accessory': {
+    male: parseDir('gender-accessory/male'),
+    female: parseDir('gender-accessory/female')
+  },
+  'head-accessory': {
+    unissex: parseDir('head-accessory/unissex')
   },
   mantle: {
     unissex: parseDir('mantle/unissex')
@@ -127,13 +133,10 @@ Object.keys(spriteMap.base).forEach(function (baseGender) {
     build(['base/' + baseGender + '/' + base])
     const baseImageArray = ['base/' + baseGender + '/' + base]
     build(baseImageArray)
-    addToSpriteHashMap('base', baseImageArray);
+    addToSpriteHashMap('base', baseImageArray)
 
     // Iterate over all groups
-    [
-      'hair', 'hair-front', 'hair-back', 'body', 'armor', 'accessory', 'mantle',
-      'wing'
-    ].forEach(function (group) {
+    OrderedSections.forEach(function (group) {
       // Iterate over all group genders (male, female and unissex)
       Object.keys(spriteMap[group]).forEach(function (groupGender) {
         if (groupGender === 'unissex' || groupGender === baseGender) {
@@ -144,10 +147,14 @@ Object.keys(spriteMap.base).forEach(function (baseGender) {
             const middleImage = `base/${baseGender}/${base}`
             const frontImage = `${group}/${groupGender}/${e.front}`
             const imageArray = [backImage, middleImage, frontImage]
-            const shouldUseBackSide = group === 'hair-back' || group === 'wing'
+            const thumbnailSide = {
+              'hair-back': 96,
+              back: 96,
+              'head-accessory': 64
+            }[group]
 
             addToSpriteHashMap(group, imageArray)
-            build(imageArray, shouldUseBackSide ? 96 : 0)
+            build(imageArray, thumbnailSide)
           })
         }
       })
