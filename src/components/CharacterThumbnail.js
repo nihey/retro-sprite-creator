@@ -4,7 +4,7 @@ import md5 from 'md5'
 
 export default function CharacterThumbnail ({ paths, active, onClick }) {
   const filename = md5(paths.join('|'))
-  const filepath = `/images/thumbnails/${filename}.png`
+  const filepath = `https://nihey.github.io/retro-sprite-creator/images/thumbnails/${filename}.png`
 
   return (
     <>
