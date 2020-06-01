@@ -1,0 +1,6 @@
+{
+  "routes": [
+    { "src": "/character/(.*)", "dest": "/character?settings=$1" },
+    { "src": "/", "dest": "/index" }
+  ]
+}
