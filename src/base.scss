@@ -1,3 +1,5 @@
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
+
 @font-face {
   font-family: "EricssonGA628";
   src: url(/fonts/EricssonGA628.ttf);
@@ -34,6 +36,9 @@ html, body {
 }
 
 .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   color: var(--color-extra-dark);
   background: var(--color-extra-light);
@@ -41,6 +46,8 @@ html, body {
   border: none;
   outline: none;
   border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
 
   $transition-duration: 0.1s;
   $transition-curve: ease-in-out;

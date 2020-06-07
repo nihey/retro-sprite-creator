@@ -2,8 +2,10 @@ import React from 'react'
 import classNames from 'classnames'
 
 import OrderedSections from '../constants/OrderedSections.json'
+import getURL from '../util/getURL'
 import getImage from '../util/getImage'
 import SpriteSheetPreview from './SpriteSheetPreview'
+import ConditionallyRender from './ConditionallyRender'
 import currentTabToBeFocused from '../util/currentTabToBeFocused'
 import Dimmer from './Dimmer'
 import TetrominoLoader from './TetrominoLoader'
@@ -64,6 +66,22 @@ const createPreview = async (canvas, base, settings) => {
   return canvas.toDataURL('image/png')
 }
 
+const getLocationHref = () => {
+  if (typeof location === 'undefined') {
+    return null
+  }
+
+  return location.href
+}
+
+const getFacebookURL = () => getURL('http://www.facebook.com/share.php', {
+  u: getLocationHref()
+})
+
+const getTwitterURL = () => getURL('https://twitter.com/intent/tweet', {
+  text: getLocationHref()
+})
+
 export default function CharacterPreview ({ characterSettings }) {
   const canvas = React.useRef(null)
   const [spriteSheet, setSpriteSheet] = React.useState(null)
@@ -99,12 +117,40 @@ export default function CharacterPreview ({ characterSettings }) {
       <div className="actions">
         <a
           href={spriteSheet}
-          className={classNames('button', { loading })}
+          className={classNames('button download', { loading })}
           download="RetroSprite.png"
         >
           { loading ? <TetrominoLoader size="xs" /> : 'Download'}
         </a>
       </div>
+      <ConditionallyRender client>
+        <div className="share">
+          <span className="label">Share</span>
+          <div className="options">
+            {[
+              ['fab fa-facebook-f', getFacebookURL()],
+              ['fab fa-twitter', getTwitterURL()]
+            ].map(([className, href]) => {
+              return (
+                <a
+                  key={className}
+                  href={href}
+                  className={classNames('button', { loading })}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  { loading ? <TetrominoLoader size="xs" /> : <i className={className}/>}
+                </a>
+              )
+            })}
+            <button
+              className={classNames('button', { loading })}
+            >
+              { loading ? <TetrominoLoader size="xs" /> : <i className="fa fa-link"/>}
+            </button>
+          </div>
+        </div>
+      </ConditionallyRender>
       <style jsx>{`
         .character-preview {
           position: fixed;
@@ -130,12 +176,33 @@ export default function CharacterPreview ({ characterSettings }) {
             margin-top: 24px;
           }
 
-          a.button {
+          .download {
             position: relative;
-            display: flex;
-            box-sizing: border-box;
             min-width: 110.36px;
             min-height: 32px;
+          }
+
+          .share {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .label {
+              margin-bottom: 8px;
+            }
+
+            .options {
+              display: flex;
+              padding-top: 8px;
+
+              .button {
+                position: relative;
+                margin: 0 4px;
+                width: 32px;
+                height: 32px;
+              }
+            }
           }
         }
       `}</style>

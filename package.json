@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "lint": "eslint .",
     "dev": "node server.js",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "classnames": "^2.2.6",
     "express": "^4.17.1",
     "md5": "^2.2.1",
