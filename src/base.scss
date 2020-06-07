@@ -1,5 +1,3 @@
-@import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
-
 @font-face {
   font-family: "EricssonGA628";
   src: url(/fonts/EricssonGA628.ttf);
@@ -62,4 +60,18 @@ html, body {
     background: var(--color-ultra-light);
     box-shadow: 0 0 8px var(--color-ultra-light);
   }
+}
+
+/*
+ * Toastify Customizations
+ */
+
+.Toastify__toast {
+  border-radius: 4px;
+  background-color: var(--color-ultra-light);
+  color: var(--color-extra-dark);
+}
+
+.Toastify__progress-bar--default {
+  background: var(--color-light);
 }

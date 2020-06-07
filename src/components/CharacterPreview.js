@@ -1,5 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
+import copy from 'clipboard-copy'
+import { toast } from 'react-toastify'
 
 import OrderedSections from '../constants/OrderedSections.json'
 import getURL from '../util/getURL'
@@ -145,6 +147,13 @@ export default function CharacterPreview ({ characterSettings }) {
             })}
             <button
               className={classNames('button', { loading })}
+              onClick={async () => {
+                try {
+                  await copy(location.href)
+                  toast('Link copied to clipboard')
+                } catch (e) {
+                }
+              }}
             >
               { loading ? <TetrominoLoader size="xs" /> : <i className="fa fa-link"/>}
             </button>
