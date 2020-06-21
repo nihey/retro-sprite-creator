@@ -108,6 +108,7 @@ export default function CharacterGrid ({ characterSettings, onChange }) {
 
           @media (max-width: 600px) {
             padding: 0px;
+            padding-bottom: 230px;
           }
         }
       `}</style>

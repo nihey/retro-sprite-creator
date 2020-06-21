@@ -213,6 +213,27 @@ export default function CharacterPreview ({ characterSettings }) {
               }
             }
           }
+
+          @media (max-width: 600px) {
+            top: unset;
+            bottom: 0;
+
+            .canvascontainer {
+              display: none;
+            }
+
+            .actions {
+              margin-top: 0;
+            }
+
+            .label {
+              display: none;
+            }
+
+            .share .options {
+              padding-top: 0px;
+            }
+          }
         }
       `}</style>
     </div>
