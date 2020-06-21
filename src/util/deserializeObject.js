@@ -1,4 +1,5 @@
 import SpriteHashMap from '../constants/SpriteHashMap'
+import atob from './atob'
 
 function getDeHashedValue (key, value) {
   const deHashedValue = SpriteHashMap[key][value]
