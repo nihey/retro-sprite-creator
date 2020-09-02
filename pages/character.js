@@ -29,6 +29,10 @@ export default function Index ({ defaultSettings }) {
       <Head>
         <title>Retro Sprite Creator</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Retro Sprite Creator" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="Quickly create excelent Sprites for your game here, for free!" />
+        <meta property="og:url" content={`https://retro-sprite-creator.nihey.org/character/${settingsString}`} />
       </Head>
       <CharacterGrid
         characterSettings={characterSettings}
