@@ -34,7 +34,7 @@ export default async function createImageKit (settingsString) {
   dataURLToFile(spriteSheetImageString, spriteSheetFilepath)
 
   const gifPath = await createGIF(base, settings)
-  moveFile(gifPath, fullAnimationFilepath)
+  await moveFile(gifPath, fullAnimationFilepath)
 
   return {
     spriteSheetFilepath,

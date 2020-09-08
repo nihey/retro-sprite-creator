@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  image-server:
+    build:
+      context: .
+    restart: always
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - '$PWD/built-images:/var/www/built-images'
+    ports:
+      - '4040:4040'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"

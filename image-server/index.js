@@ -3,7 +3,7 @@ import express from 'express'
 import createImageKit from './createImageKit'
 
 const app = express()
-const port = 4000
+const port = 4040
 
 app.get('/spritesheet/:settingsString', async (req, res) => {
   const { spriteSheetFilepath } = await createImageKit(req.params.settingsString)

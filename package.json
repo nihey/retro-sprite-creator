@@ -8,12 +8,14 @@
     "build": "next build",
     "start": "next start",
     "server": "node -r esm ./image-server/index.js",
-    "dev-server": "nodemon -r esm ./image-server/index.js"
+    "dev-server": "nodemon -r esm ./image-server/index.js",
+    "deploy": "rsync --delete -azv . root@nihey.org:/var/www/retro-sprite-creator --exclude .git --exclude .next --exclude node_modules/ && ssh root@nihey.org \"cd /var/www/retro-sprite-creator && docker-compose up -d --build image-server\""
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "classnames": "^2.2.6",
     "clipboard-copy": "^3.1.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "gifencoder": "^2.0.1",
     "mkdirp": "^1.0.4",
@@ -40,7 +42,6 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-standard": "^4.0.1",
-    "esm": "^3.2.25",
     "graceful-fs": "^4.2.4",
     "nodemon": "^2.0.4"
   }
