@@ -1,5 +1,6 @@
 import React from 'react'
 
+import cropPointsList from '../constants/cropPointsList'
 import getImage from '../util/getImage'
 import Dimmer from './Dimmer'
 import TetrominoLoader from './TetrominoLoader'
@@ -67,30 +68,6 @@ function Sprite ({ spriteSheet, cropPoints, loading }) {
     </div>
   )
 }
-
-const cropPointsList = [
-  [
-    [0, 0, 32, 32],
-    [32, 0, 32, 32],
-    [64, 0, 32, 32],
-    [32, 0, 32, 32]
-  ], [
-    [0, 32, 32, 32],
-    [32, 32, 32, 32],
-    [64, 32, 32, 32],
-    [32, 32, 32, 32]
-  ], [
-    [0, 64, 32, 32],
-    [32, 64, 32, 32],
-    [64, 64, 32, 32],
-    [32, 64, 32, 32]
-  ], [
-    [0, 96, 32, 32],
-    [32, 96, 32, 32],
-    [64, 96, 32, 32],
-    [32, 96, 32, 32]
-  ]
-]
 
 export default function SpriteSheetPreview ({ spriteSheet, loading }) {
   return (

@@ -13,6 +13,7 @@
     "classnames": "^2.2.6",
     "clipboard-copy": "^3.1.0",
     "express": "^4.17.1",
+    "gifencoder": "^2.0.1",
     "md5": "^2.2.1",
     "next": "9.4.1",
     "next-routes": "^1.4.2",
@@ -24,6 +25,7 @@
     "sass": "^1.26.5",
     "short-hash": "^1.0.0",
     "styled-jsx-plugin-sass": "^1.0.0",
+    "uid": "^1.0.0",
     "visibilityjs": "^2.0.2"
   },
   "devDependencies": {

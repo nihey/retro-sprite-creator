@@ -1,5 +1,5 @@
 import parseSettings from '../image-server/parseSettings'
-import createPreview from '../image-server/createPreview'
+import createGIF from '../image-server/createGIF'
 
 async function main () {
   const fullSettings = parseSettings(process.argv[2])
@@ -9,8 +9,8 @@ async function main () {
   }
 
   const { base, ...settings } = fullSettings
-  const preview = await createPreview(base, settings)
-  console.log(preview)
+  const gifPath = await createGIF(base, settings)
+  console.log('Done at:', gifPath)
 }
 
 main()
