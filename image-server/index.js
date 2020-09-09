@@ -5,6 +5,11 @@ import createImageKit from './createImageKit'
 const app = express()
 const port = 4040
 
+app.get('/og-image/:settingsString', async (req, res) => {
+  const { ogImageFilepath } = await createImageKit(req.params.settingsString)
+  res.sendFile(ogImageFilepath)
+})
+
 app.get('/spritesheet/:settingsString', async (req, res) => {
   const { spriteSheetFilepath } = await createImageKit(req.params.settingsString)
   res.sendFile(spriteSheetFilepath)

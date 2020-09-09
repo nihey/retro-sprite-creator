@@ -9,7 +9,7 @@
     "start": "next start",
     "server": "node -r esm ./image-server/index.js",
     "dev-server": "nodemon -r esm ./image-server/index.js",
-    "deploy": "rsync --delete -azv . root@nihey.org:/var/www/retro-sprite-creator --exclude built-images/ --exclude .git --exclude .next --exclude node_modules/ && ssh root@nihey.org \"cd /var/www/retro-sprite-creator && docker-compose up -d --build image-server\""
+    "deploy-server": "rsync --delete -azv . root@nihey.org:/var/www/retro-sprite-creator --exclude built-images/ --exclude .git --exclude .next --exclude node_modules/ && ssh root@nihey.org \"cd /var/www/retro-sprite-creator && docker-compose up -d --build image-server\""
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
@@ -29,6 +29,7 @@
     "react-dom": "16.13.1",
     "react-toastify": "^6.0.5",
     "sass": "^1.26.5",
+    "sharp": "^0.26.0",
     "short-hash": "^1.0.0",
     "styled-jsx-plugin-sass": "^1.0.0",
     "uid": "^1.0.0",
