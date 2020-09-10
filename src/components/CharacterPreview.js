@@ -7,6 +7,7 @@ import getURL from '../util/getURL'
 import createPreview from '../util/createPreview'
 import SpriteSheetPreview from './SpriteSheetPreview'
 import ConditionallyRender from './ConditionallyRender'
+import Button from './Button'
 import Dimmer from './Dimmer'
 import TetrominoLoader from './TetrominoLoader'
 
@@ -59,13 +60,15 @@ export default function CharacterPreview ({ characterSettings }) {
         {loading && <Dimmer><TetrominoLoader size="sm"/></Dimmer>}
       </div>
       <div className="actions">
-        <a
+        <Button
+          Component="a"
+          loading={loading}
           href={spriteSheet}
-          className={classNames('button download', { loading })}
+          className="download"
           download="RetroSprite.png"
         >
-          { loading ? <TetrominoLoader size="xs" /> : 'Download'}
-        </a>
+          Download
+        </Button>
       </div>
       <ConditionallyRender client>
         <div className="share">
@@ -127,7 +130,7 @@ export default function CharacterPreview ({ characterSettings }) {
             margin-top: 24px;
           }
 
-          .download {
+          :global(.download) {
             position: relative;
             min-width: 110.36px;
             min-height: 32px;
