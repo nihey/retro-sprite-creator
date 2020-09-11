@@ -34,10 +34,12 @@ html, body {
 }
 
 .button {
-  display: inline-flex;
+  white-space: nowrap;
+  display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  font-size: 1em;
   color: var(--color-extra-dark);
   background: var(--color-extra-light);
   padding: 8px 16px;
@@ -56,9 +58,11 @@ html, body {
     background: var(--color-low-emphasis);
   }
 
-  &:not(.loading):hover {
-    background: var(--color-ultra-light);
-    box-shadow: 0 0 8px var(--color-ultra-light);
+  &:not(.loading) {
+    &:hover, &.active {
+      background: var(--color-ultra-light);
+      box-shadow: 0 0 8px var(--color-ultra-light);
+    }
   }
 }
 

@@ -41,7 +41,7 @@ export default function Index ({ defaultSettings }) {
         characterSettings={characterSettings}
         onChange={onChangeCharacterSettings}
       />
-      <CharacterPreview characterSettings={characterSettings}/>
+      <CharacterPreview characterSettings={characterSettings} settingsString={settingsString} />
     </div>
   )
 }

@@ -7,17 +7,17 @@ const port = 4040
 
 app.get('/og-image/:settingsString', async (req, res) => {
   const { ogImageFilepath } = await createImageKit(req.params.settingsString)
-  res.sendFile(ogImageFilepath)
+  res.download(ogImageFilepath, 'og-image.png')
 })
 
 app.get('/spritesheet/:settingsString', async (req, res) => {
   const { spriteSheetFilepath } = await createImageKit(req.params.settingsString)
-  res.sendFile(spriteSheetFilepath)
+  res.download(spriteSheetFilepath, 'sprite-sheet.png')
 })
 
 app.get('/animation/:settingsString/full', async (req, res) => {
   const { fullAnimationFilepath } = await createImageKit(req.params.settingsString)
-  res.sendFile(fullAnimationFilepath)
+  res.download(fullAnimationFilepath, 'sprite-animation.gif')
 })
 
 app.listen(port, () => {

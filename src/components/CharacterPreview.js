@@ -7,7 +7,7 @@ import getURL from '../util/getURL'
 import createPreview from '../util/createPreview'
 import SpriteSheetPreview from './SpriteSheetPreview'
 import ConditionallyRender from './ConditionallyRender'
-import Button from './Button'
+import Dropdown from './Dropdown'
 import Dimmer from './Dimmer'
 import TetrominoLoader from './TetrominoLoader'
 
@@ -27,7 +27,7 @@ const getTwitterURL = () => getURL('https://twitter.com/intent/tweet', {
   text: getLocationHref()
 })
 
-export default function CharacterPreview ({ characterSettings }) {
+export default function CharacterPreview ({ characterSettings, settingsString }) {
   const canvas = React.useRef(null)
   const [spriteSheet, setSpriteSheet] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
@@ -60,15 +60,25 @@ export default function CharacterPreview ({ characterSettings }) {
         {loading && <Dimmer><TetrominoLoader size="sm"/></Dimmer>}
       </div>
       <div className="actions">
-        <Button
-          Component="a"
-          loading={loading}
-          href={spriteSheet}
+        <Dropdown
           className="download"
-          download="RetroSprite.png"
+          loading={loading}
+          options={[
+            {
+              Component: 'a',
+              href: spriteSheet,
+              download: 'sprite-sheet.png',
+              children: 'Sprite Sheet'
+            },
+            {
+              Component: 'a',
+              href: `https://retro-image-server.nihey.org/animation/${settingsString}/full`,
+              children: 'Sprite GIF'
+            }
+          ]}
         >
           Download
-        </Button>
+        </Dropdown>
       </div>
       <ConditionallyRender client>
         <div className="share">

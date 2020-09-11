@@ -8,11 +8,12 @@ export default function Button ({
   loading = false,
   children,
   className,
+  active = false,
   ...props
 }) {
   return (
     <Component
-      className={classNames('button', { loading }, className)}
+      className={classNames('button', { loading, active }, className)}
       {...props}
     >
       { loading ? <TetrominoLoader size="xs" /> : children}
