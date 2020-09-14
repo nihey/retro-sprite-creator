@@ -31,3 +31,6 @@ yarn-error.log*
 
 # Image server built files
 built-images/
+
+# Built thumbnail images
+public/images/thumbnails/

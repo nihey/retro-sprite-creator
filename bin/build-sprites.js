@@ -79,7 +79,7 @@ const spriteMap = {
 }
 
 let count = 0
-function build (paths, sy = 0) {
+function build (paths, sy = 0, lowOpacityRegex = null) {
   count += 1
 
   // Create a canvas
@@ -91,7 +91,13 @@ function build (paths, sy = 0) {
     const image = new Image()
     console.info('opening', filename)
     image.src = fs.readFileSync(path.join(__dirname, '../public/images/creator/', `${filename}.png`))
+
+    if (lowOpacityRegex && filename.match(lowOpacityRegex)) {
+      context.globalAlpha = 0.35
+    }
+
     context.drawImage(image, 32, sy, 32, 32, 0, 0, 32, 32)
+    context.globalAlpha = 1
   })
 
   // Save the thumbnail
@@ -154,7 +160,7 @@ Object.keys(spriteMap.base).forEach(function (baseGender) {
             }[group]
 
             addToSpriteHashMap(group, imageArray)
-            build(imageArray, thumbnailSide)
+            build(imageArray, thumbnailSide, /base\//)
           })
         }
       })
