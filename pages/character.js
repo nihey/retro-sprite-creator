@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 import CharacterGrid from '../src/components/CharacterGrid'
 import CharacterPreview from '../src/components/CharacterPreview'
+import ProductHuntUpvotes from '../src/components/ProductHuntUpvotes'
 
 import serializeObject from '../src/util/serializeObject'
 import deserializeObject from '../src/util/deserializeObject'
@@ -37,6 +38,7 @@ export default function Index ({ defaultSettings }) {
         <meta property="og:image:height" content="200" />
         <meta property="og:url" content={`https://retro-sprite-creator.nihey.org/character/${settingsString}`} />
       </Head>
+      <ProductHuntUpvotes/>
       <CharacterGrid
         characterSettings={characterSettings}
         onChange={onChangeCharacterSettings}
