@@ -1,5 +1,4 @@
 import React from 'react'
-import classNames from 'classnames'
 import copy from 'clipboard-copy'
 import { toast } from 'react-toastify'
 
@@ -9,6 +8,8 @@ import SpriteSheetPreview from './SpriteSheetPreview'
 import ConditionallyRender from './ConditionallyRender'
 import Dropdown from './Dropdown'
 import Dimmer from './Dimmer'
+import Button from './Button'
+import Modal from './Modal'
 import TetrominoLoader from './TetrominoLoader'
 
 const getLocationHref = () => {
@@ -31,6 +32,7 @@ export default function CharacterPreview ({ characterSettings, settingsString })
   const canvas = React.useRef(null)
   const [spriteSheet, setSpriteSheet] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
+  const [showAbout, setShowAbout] = React.useState(false)
   const isHidden = React.useMemo(() => !characterSettings, [characterSettings])
 
   React.useEffect(() => {
@@ -89,32 +91,69 @@ export default function CharacterPreview ({ characterSettings, settingsString })
               ['fab fa-twitter', getTwitterURL()]
             ].map(([className, href]) => {
               return (
-                <a
+                <Button
+                  Component="a"
                   key={className}
                   href={href}
-                  className={classNames('button', { loading })}
+                  loading={loading}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >
-                  { loading ? <TetrominoLoader size="xs" /> : <i className={className}/>}
-                </a>
+                  <i className={className}/>
+                </Button>
               )
             })}
-            <button
-              className={classNames('button', { loading })}
+            <Button
+              loading={loading}
               onClick={async () => {
-                try {
-                  await copy(location.href)
-                  toast('Link copied to clipboard')
-                } catch (e) {
-                }
+                await copy(location.href)
+                toast('Link copied to clipboard')
               }}
             >
-              { loading ? <TetrominoLoader size="xs" /> : <i className="fa fa-link"/>}
-            </button>
+              <i className="fa fa-link"/>
+            </Button>
           </div>
         </div>
       </ConditionallyRender>
+      <div className="about">
+        <Button onClick={() => setShowAbout(true)}>About</Button>
+      </div>
+      <Modal
+        title="About"
+        maxWidth="30vw"
+        open={showAbout}
+        onClose={() => setShowAbout(false)}
+      >
+        <p>
+          Retro Sprite Creator is a free project built and maintained by
+          {' '}
+          <a target="_blank" rel="noopener noreferrer" href="https://nihey.org/">nihey takizawa</a>.
+          {' '}
+        </p>
+        <p>
+          All Sprites here are available for Non-Commercial Projects, you just need to credit the original sprite designers:
+        </p>
+        <ul>
+          <li>Famitsu</li>
+          <li>EnterBrain</li>
+        </ul>
+        <p>
+          My goal here is to provide a place where people can easily create
+          custom sprites for their games.
+        </p>
+        <p>
+          I&apos;ve developed some games on my college years and wish that
+          something like this existed back then, so why not build and share one
+          with the world?
+        </p>
+        <p>
+          Do you have some Sprites that you would like to share and add to this website?
+          {' '}
+          <a rel="noopener noreferrer" target="_blank" href="mailto:nihey.takizawa@gmail.com">
+            send me an email
+          </a>.
+        </p>
+      </Modal>
       <style jsx>{`
         .character-preview {
           position: fixed;
@@ -160,12 +199,22 @@ export default function CharacterPreview ({ characterSettings, settingsString })
               display: flex;
               padding-top: 8px;
 
-              .button {
+              :global(.button) {
                 position: relative;
                 margin: 0 4px;
                 width: 32px;
                 height: 32px;
               }
+            }
+          }
+
+          .about {
+            padding-top: 12px;
+            min-width: 110.36px;
+            min-height: 32px;
+
+            :global(.button) {
+              width: 100%;
             }
           }
 

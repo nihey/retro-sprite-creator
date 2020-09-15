@@ -2,9 +2,11 @@ import React from 'react'
 import classNames from 'classnames'
 import md5 from 'md5'
 
+import { THUMBNAIL_BASE_URL } from '../constants/Application'
+
 export default function CharacterThumbnail ({ paths, active, onClick }) {
   const filename = md5(paths.join('|'))
-  const filepath = `https://nihey.github.io/retro-sprite-creator/images/thumbnails/${filename}.png`
+  const filepath = `${THUMBNAIL_BASE_URL}${filename}.png`
 
   return (
     <>

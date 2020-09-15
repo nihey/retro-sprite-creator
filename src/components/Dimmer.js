@@ -6,10 +6,10 @@ const intensities = {
   low: 'var(--low-emphasis-opacity)'
 }
 
-export default function Dimmer ({ intensity = 'medium', children }) {
+export default function Dimmer ({ intensity = 'medium', onClick, children }) {
   return (
     <>
-      <div className="dimmer"/>
+      <div className="dimmer" onClick={onClick}/>
       { children }
       <style jsx>{`
         .dimmer {
