@@ -156,7 +156,9 @@ Object.keys(spriteMap.base).forEach(function (baseGender) {
             const thumbnailSide = {
               'hair-back': 96,
               back: 96,
-              'head-accessory': 64
+              'head-accessory': 64,
+              mantle: 96,
+              wing: 96
             }[group]
 
             addToSpriteHashMap(group, imageArray)
