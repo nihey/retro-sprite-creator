@@ -2,7 +2,7 @@ import React from 'react'
 
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-const isProduction = process.env.NODE_ENV === 'production'
+const isProduction = process.env.ENVIRONMENT === 'production'
 const trackingTags = isProduction ? (
   <>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-178059932-1"></script>
