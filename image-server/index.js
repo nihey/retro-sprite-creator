@@ -5,6 +5,11 @@ import createImageKit from './createImageKit'
 const app = express()
 const port = 4040
 
+app.get('/favicon/:settingsString', async (req, res) => {
+  const { faviconFilepath } = await createImageKit(req.params.settingsString)
+  res.download(faviconFilepath, 'favicon.png')
+})
+
 app.get('/og-image/:settingsString', async (req, res) => {
   const { ogImageFilepath } = await createImageKit(req.params.settingsString)
   res.download(ogImageFilepath, 'og-image.png')

@@ -18,17 +18,20 @@ export default async function createImageKit (settingsString) {
   const basePath = path.join(PREFIX, settingsString)
   mkdirp.sync(basePath)
 
+  const faviconFilepath = path.join(basePath, 'favicon.png')
   const ogImageFilepath = path.join(basePath, 'og-image.png')
   const spriteSheetFilepath = path.join(basePath, 'spritesheet.png')
   const fullAnimationFilepath = path.join(basePath, 'full-animation.gif')
 
   const isAlreadyCreated = (
+    fs.existsSync(faviconFilepath) &&
     fs.existsSync(ogImageFilepath) &&
     fs.existsSync(spriteSheetFilepath) &&
     fs.existsSync(fullAnimationFilepath)
   )
   if (isAlreadyCreated) {
     return {
+      faviconFilepath,
       ogImageFilepath,
       spriteSheetFilepath,
       fullAnimationFilepath
@@ -42,10 +45,18 @@ export default async function createImageKit (settingsString) {
   const spriteSheetImageString = await createPreview(base, settings)
   dataURLToFile(spriteSheetImageString, spriteSheetFilepath)
 
+  await sharp(spriteSheetFilepath).extract({
+    left: 32,
+    top: 64,
+    width: 32,
+    height: 32
+  }).toFile(faviconFilepath)
+
   const gifPath = await createGIF(base, settings)
   await moveFile(gifPath, fullAnimationFilepath)
 
   return {
+    faviconFilepath,
     ogImageFilepath,
     spriteSheetFilepath,
     fullAnimationFilepath

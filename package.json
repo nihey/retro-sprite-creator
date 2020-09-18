@@ -9,7 +9,7 @@
     "start": "next start",
     "server": "node -r esm ./image-server/index.js",
     "dev-server": "nodemon -r esm ./image-server/index.js",
-    "deploy-server": "rsync --delete -azv . root@nihey.org:/var/www/retro-sprite-creator --exclude built-images/ --exclude .git --exclude .next --exclude node_modules/ && ssh root@nihey.org \"cd /var/www/retro-sprite-creator && docker-compose up -d --build image-server\""
+    "deploy-server": "rsync --delete -azv . root@maridia.nihey.org:/var/www/retro-sprite-creator --exclude built-images/ --exclude public/images/thumbnails --exclude .git --exclude .next --exclude node_modules/ && ssh root@maridia.nihey.org \"cd /var/www/retro-sprite-creator && docker-compose up -d --build image-server\""
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
