@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 
 import getURL from '../util/getURL'
 import createPreview from '../util/createPreview'
+import isAbleToShare from '../util/isAbleToShare'
 import SpriteSheetPreview from './SpriteSheetPreview'
 import ConditionallyRender from './ConditionallyRender'
 import Dropdown from './Dropdown'
@@ -34,6 +35,7 @@ export default function CharacterPreview ({ characterSettings, settingsString })
   const [loading, setLoading] = React.useState(false)
   const [showAbout, setShowAbout] = React.useState(false)
   const isHidden = React.useMemo(() => !characterSettings, [characterSettings])
+  const isShareEnabled = isAbleToShare()
 
   React.useEffect(() => {
     const canvasElement = canvas.current
@@ -86,7 +88,7 @@ export default function CharacterPreview ({ characterSettings, settingsString })
         <div className="share">
           <span className="label">Share</span>
           <div className="options">
-            {[
+            {!isShareEnabled && [
               ['fab fa-facebook-f', getFacebookURL()],
               ['fab fa-twitter', getTwitterURL()]
             ].map(([className, href]) => {
@@ -103,6 +105,20 @@ export default function CharacterPreview ({ characterSettings, settingsString })
                 </Button>
               )
             })}
+            {isShareEnabled && (
+              <Button
+                loading={loading}
+                onClick={() => {
+                  navigator.share({
+                    title: "I'm creating an awesome Sprite here",
+                    text: 'Check this out and create yours too!',
+                    url: location.href
+                  })
+                }}
+              >
+                <i className="fa fa-share-alt"/>
+              </Button>
+            )}
             <Button
               loading={loading}
               onClick={async () => {
