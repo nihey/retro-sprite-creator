@@ -9,17 +9,17 @@ import ProductHuntUpvotes from '../src/components/ProductHuntUpvotes'
 import serializeObject from '../src/util/serializeObject'
 import deserializeObject from '../src/util/deserializeObject'
 
-const getDefaultSettings = (defaultSettings) => {
-  if (defaultSettings === 'new') {
+const getSettings = (settings) => {
+  if (settings === 'new') {
     return 'eyJiYXNlIjoiMjJiOTJhZjUifQ=='
   }
 
-  return defaultSettings
+  return settings
 }
 
 export default function Index ({ defaultSettings }) {
   const router = useRouter()
-  const settingsString = router.query.settings || getDefaultSettings(defaultSettings)
+  const settingsString = getSettings(router.query.settings || defaultSettings)
 
   const characterSettings = deserializeObject(settingsString) || {
     base: 'base/male/color-0'
