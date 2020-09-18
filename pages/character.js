@@ -9,22 +9,25 @@ import ProductHuntUpvotes from '../src/components/ProductHuntUpvotes'
 import serializeObject from '../src/util/serializeObject'
 import deserializeObject from '../src/util/deserializeObject'
 
+const getDefaultSettings = (defaultSettings) => {
+  if (defaultSettings === 'new') {
+    return 'eyJiYXNlIjoiMjJiOTJhZjUifQ=='
+  }
+
+  return defaultSettings
+}
+
 export default function Index ({ defaultSettings }) {
   const router = useRouter()
-  const settingsString = router.query.settings || defaultSettings
+  const settingsString = router.query.settings || getDefaultSettings(defaultSettings)
 
   const characterSettings = deserializeObject(settingsString) || {
     base: 'base/male/color-0'
   }
 
   const faviconURL = React.useMemo(() => {
-    const isCharacterOnlyBase = Object.keys(characterSettings).length === 0
-    if (isCharacterOnlyBase) {
-      return '/favicon.ico'
-    }
-
     return `https://retro-image-server.nihey.org/favicon/${settingsString}`
-  }, [settingsString, characterSettings])
+  }, [settingsString])
 
   const onChangeCharacterSettings = (newCharacterSettings) => {
     const serializedNewCharacterSettings = serializeObject(newCharacterSettings)
