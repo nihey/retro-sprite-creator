@@ -45,7 +45,7 @@ export default function Index ({ defaultSettings }) {
         <link rel="icon" href={faviconURL} />
         <meta property="og:title" content="Retro Sprite Creator" />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content="Quickly create excelent Sprites for your game here, for free!" />
+        <meta property="og:description" content="Quickly create excellent Sprites for your game here, for free!" />
         <meta property="og:image" content={`https://retro-image-server.nihey.org/og-image/${settingsString}`} />
         <meta property="og:image:width" content="200" />
         <meta property="og:image:height" content="200" />
