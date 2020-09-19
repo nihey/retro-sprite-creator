@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
+import md5 from 'md5'
 import sharp from 'sharp'
 import mkdirp from 'mkdirp'
 import moveFile from 'move-file'
@@ -14,14 +15,17 @@ const PREFIX = path.join(__dirname, '..', 'built-images')
 
 export default async function createImageKit (settingsString) {
   const { base, ...settings } = parseSettings(settingsString)
+  mkdirp.sync(PREFIX)
 
-  const basePath = path.join(PREFIX, settingsString)
-  mkdirp.sync(basePath)
+  const getFilePath = (filename) => {
+    return path.join(PREFIX, filename)
+  }
 
-  const faviconFilepath = path.join(basePath, 'favicon.png')
-  const ogImageFilepath = path.join(basePath, 'og-image.png')
-  const spriteSheetFilepath = path.join(basePath, 'spritesheet.png')
-  const fullAnimationFilepath = path.join(basePath, 'full-animation.gif')
+  const hashedSettingsString = md5(settingsString)
+  const faviconFilepath = getFilePath(`favicon-${hashedSettingsString}.png`)
+  const ogImageFilepath = getFilePath(`og-image-${hashedSettingsString}.png`)
+  const spriteSheetFilepath = getFilePath(`spritesheet-${hashedSettingsString}.png`)
+  const fullAnimationFilepath = getFilePath(`full-animation-${hashedSettingsString}.gif`)
 
   const isAlreadyCreated = (
     fs.existsSync(faviconFilepath) &&
