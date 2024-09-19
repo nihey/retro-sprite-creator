@@ -64,25 +64,14 @@ export default function CharacterPreview ({ characterSettings, settingsString })
         {loading && <Dimmer><TetrominoLoader size="sm"/></Dimmer>}
       </div>
       <div className="actions">
-        <Dropdown
+        <Button
+          Component="a"
+          download="sprite-sheet.png"
           className="download"
-          loading={loading}
-          options={[
-            {
-              Component: 'a',
-              href: spriteSheet,
-              download: 'sprite-sheet.png',
-              children: 'Sprite Sheet'
-            },
-            {
-              Component: 'a',
-              href: `https://retro-image-server.nihey.org/animation/${settingsString}/full`,
-              children: 'Sprite GIF'
-            }
-          ]}
+          href={spriteSheet}
         >
           Download
-        </Dropdown>
+        </Button>
       </div>
       <ConditionallyRender client>
         <div className="share">
