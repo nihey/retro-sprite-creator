@@ -2,12 +2,12 @@ import React from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import CharacterGrid from '../src/components/CharacterGrid'
-import CharacterPreview from '../src/components/CharacterPreview'
-import ProductHuntUpvotes from '../src/components/ProductHuntUpvotes'
+import CharacterGrid from '../../src/components/CharacterGrid'
+import CharacterPreview from '../../src/components/CharacterPreview'
+import ProductHuntUpvotes from '../../src/components/ProductHuntUpvotes'
 
-import serializeObject from '../src/util/serializeObject'
-import deserializeObject from '../src/util/deserializeObject'
+import serializeObject from '../../src/util/serializeObject'
+import deserializeObject from '../../src/util/deserializeObject'
 
 const getSettings = (settings) => {
   if (settings === 'new') {
